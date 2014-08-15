@@ -27,19 +27,19 @@
 	</div>
 
 	<script type="text/html" id="todoList">
-		<li><span data-bind="text:name"></span> <a href="#" data-bind="click: $parent.removeTodo">X</a></li>
+		<li><span data-bind="text:name"></span> - <span data-bind="text: time"></span> <span <a href="#" data-bind="click: $parent.removeTodo">X</a></li>
 	</script>
-	
+
 	<script>
 	var todosViewModel = function(){
 		var self = this;
 
-		self.todos = ko.observableArray([{name: 'First TODO'}]);
+		self.todos = ko.observableArray([{name: 'First TODO', time: 1408098600}]);
 
 		self.todo = ko.observable('');
 
 		self.addTodo = function(){
-			self.todos.push({name: self.todo()});
+			self.todos.push({name: self.todo(), time: moment().unix()});
 			self.todo('');
 		}
 
