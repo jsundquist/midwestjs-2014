@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Let knockout knock your socks off</title>
+
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+
+	<script src="js/knockout-3.1.0.js"></script>
+	<script src="js/moment.js"></script>
+	<script src="js/bindings/date.js"></script>
+</head>
+<body>
+	<div class="container">
+		<form role="form">
+			<div class="form-group">
+				<label for="todo">What do you need todo?</label>
+				<input type="text" id="todo" name="todo" value="" placeholder="What do you need todo?" class="form-control" data-bind="value: todo" />
+			</div>
+			<button data-bind="click: addTodo" class="btn btn-default">Add Todo</button>
+		</form>
+		<hr />
+		<h1>Midwest JS TODO's</h1>
+
+		<ul data-bind="template: {name: 'todo-item', foreach: todos}"></ul>
+
+	</div>
+	<script type="text/html" id="todo-item">
+		<li><span data-bind="text:name"></span> - <span data-bind="date: time"></span><a href="#" data-bind="click: $parent.removeTodo">X</a></li>
+	</script>
+	<script>
+	var todosViewModel = function(){
+		var self = this;
+
+		self.todos = ko.observableArray([{name:'First TODO', time: 1408098600}]);
+		self.todo = ko.observable('');
+
+		self.addTodo = function(){
+			self.todos.push({name: self.todo(), time: moment().unix()});
+			self.todo('');
+		};
+
+		self.removeTodo = function(){
+			self.todos.remove(this);
+		};
+	};
+
+	ko.applyBindings(new todosViewModel());
+	</script>
+
+	
+</body>
+</html>
