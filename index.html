@@ -40,6 +40,10 @@
 			self.todos.push({name: self.todo()});
 			self.todo('');
 		}
+
+		self.removeTodo = function() {
+			self.todos.remove(this);
+		}
 	};
 	ko.applyBindings(new todosViewModel());
 	</script>
