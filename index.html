@@ -15,9 +15,9 @@
 		<form role="form">
 			<div class="form-group">
 				<label for="todo">What do you need todo?</label>
-				<input type="text" id="todo" name="todo" value="" placeholder="What do you need todo?" class="form-control" />
+				<input type="text" id="todo" name="todo" value="" placeholder="What do you need todo?" class="form-control" data-bind="value: todo" />
 			</div>
-			<button class="btn btn-default">Add Todo</button>
+			<button class="btn btn-default" data-bind="click: addTodo">Add Todo</button>
 		</form>
 		<hr />
 		<h1>Midwest JS TODO's</h1>
@@ -29,10 +29,19 @@
 	</div>
 
 	<script>
-	var todosViewModel = {
-		todos: ko.observableArray([{name: 'First TODO'}])
+	var todosViewModel = function(){
+		var self = this;
+
+		self.todos = ko.observableArray([{name: 'First TODO'}]);
+
+		self.todo = ko.observable('');
+
+		self.addTodo = function(){
+			self.todos.push({name: self.todo()});
+			self.todo('');
+		}
 	};
-	ko.applyBindings(todosViewModel);
+	ko.applyBindings(new todosViewModel());
 	</script>
 </body>
 </html>
