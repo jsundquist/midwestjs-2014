@@ -22,12 +22,14 @@
 		<hr />
 		<h1>Midwest JS TODO's</h1>
 
-		<ul data-bind="foreach:todos">
-			<li><span data-bind="text:name"></span> <a href="#" data-bind="click: $parent.removeTodo">X</a></li>
-		</ul>
+		<ul data-bind="template: {name: 'todoList', foreach: todos}"></ul>
 
 	</div>
 
+	<script type="text/html" id="todoList">
+		<li><span data-bind="text:name"></span> <a href="#" data-bind="click: $parent.removeTodo">X</a></li>
+	</script>
+	
 	<script>
 	var todosViewModel = function(){
 		var self = this;
